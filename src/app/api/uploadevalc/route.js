@@ -4,7 +4,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const prisma = new PrismaClient();
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
-const model = genAI.getGenerativeModel({ model: "models/gemini-1.5-pro" });
+const model = genAI.getGenerativeModel({ model: "models/gemini-2.5-pro" });
 
 export async function POST(req) {
   try {
