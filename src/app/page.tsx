@@ -2,7 +2,11 @@
 import { useEffect } from "react"
 import gsap from 'gsap'
 import Drawer from '@/components/Drawer'
+import { useSession } from "next-auth/react";
 export default function Home() {
+  const session=useSession();
+  const role=session?.data?.user?.role;
+  console.log(role);
   useEffect(() => {
     gsap.fromTo(
       ".text",
@@ -39,10 +43,6 @@ export default function Home() {
   <div className='btn'>
         <Drawer/>
         </div>
-       
-
-
-     
     </div>
   )
 }

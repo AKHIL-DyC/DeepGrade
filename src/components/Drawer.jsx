@@ -5,15 +5,19 @@ import { motion } from 'framer-motion';
 import Button from './Button';
 import { useRouter } from "next/navigation";
 import SignupFormDemo from './Signupform';
-
+import { useSession } from 'next-auth/react';
 const Drawer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-
+  const session=useSession();
+  const role=session.data?.user?.role
   // Navigate to the student results page
   const goToResults = () => {
     router.push('/studentresults');
   };
+  const goToDashboard=()=>{
+    router.push('/dashboard');
+  }
 
   return (
     <div className="relative w-full flex justify-center items-center pt-14">
@@ -21,7 +25,11 @@ const Drawer = () => {
       <div className="flex justify-around w-[50vw]">
         <Button label="Join Now" func={setIsOpen} parameter="true" />
         {/* New Results Button */}
-        <Button label="View Results" func={goToResults} />
+        
+        {
+          role==='Teacher'?<Button label="Dashboard" func={goToDashboard} />:role==='Student'?<div><Button label="View Results" func={goToResults} /></div>:<div/>
+        }
+        
       </div>
 
       {/* Animated Drawer */}

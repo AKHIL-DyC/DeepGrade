@@ -30,14 +30,19 @@ export default function SignupFormDemo() {
       roll:e.target?.roll?.value,
       role:role
     };
-    try{
+    try{11
       const res= await fetch('/api/signup',{
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify(formdata)
       })
       const data=await res.json(res);
-      router.push("/dashboard");
+      if(role==='Teacher'){
+         router.push('/dashboard');
+      }
+      else{
+        router.push('/studentresults')
+      }
     }
     catch(e){
       console.log("some error"+e);
