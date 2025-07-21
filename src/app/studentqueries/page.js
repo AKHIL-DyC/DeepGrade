@@ -1,10 +1,22 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { FileText, MessageCircle, User, Calendar, CheckCircle } from 'lucide-react';
 
-export default function StudentQueriesPage() {
+// Loading component for Suspense fallback
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen w-full bg-gradient-to-br from-emerald-50 to-emerald-100 p-4 flex items-center justify-center">
+      <div className="bg-white rounded-2xl shadow-xl p-8">
+        <p className="text-emerald-600 font-medium">Loading student information...</p>
+      </div>
+    </div>
+  );
+}
+
+// Main component logic separated
+function StudentQueriesContent() {
   const [queries, setQueries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -195,5 +207,14 @@ export default function StudentQueriesPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Main export wrapped with Suspense
+export default function StudentQueriesPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <StudentQueriesContent />
+    </Suspense>
   );
 }
