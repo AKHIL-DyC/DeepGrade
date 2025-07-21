@@ -5,6 +5,7 @@ import Drawer from '@/components/Drawer'
 import { useSession } from "next-auth/react";
 export default function Home() {
   const session=useSession();
+  // @ts-ignore
   const role=session?.data?.user?.role;
   console.log(role);
   useEffect(() => {
